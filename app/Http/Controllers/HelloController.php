@@ -4,22 +4,87 @@ namespace App\Http\Controllers;
 
 use App\Person;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 class HelloController extends Controller
 {
-    //Storageの実験
+    public function index(Request $request,Response $response)
+    {
+        $msg = 'please input text:';
+        $keys = [];
+        $values = [];
+        if ($request->isMethod('post')) {
+            $form = $request->all();
+            $keys = array_keys($form);
+            //dd($keys);//要素の属性が出力される
+            $values = array_values($form);
+            //dd($values);//要素の内容が出力される
+        }
+        $data = [
+            'msg' => $msg,
+            'keys' => $keys,
+            'values' => $values,
+        ];
+        return view('hello.index', $data);
+    }
+
+    /* 要素の属性、内容の出力
+    public function index(Request $request,Response $response)
+    {
+        $msg = 'please input text:';
+        $keys = [];
+        $values = [];
+        if ($request->isMethod('post')) {
+            $form = $request->all();
+            $keys = array_keys($form);
+            //dd($keys);//要素の属性が出力される
+            $values = array_values($form);
+            //dd($values);//要素の内容が出力される
+        }
+        $data = [
+            'msg' => $msg,
+            'keys' => $keys,
+            'values' => $values,
+        ];
+        return view('hello.index', $data);
+    }
+    */
+
+    /* 複数要素のインプット
+    public function index(Request $request)
+    {
+        $msg = 'please input text:';
+        $keys = [];
+        $values = [];
+        if ($request->isMethod('post')) {
+            $form = $request->all();
+            $keys = array_keys($form);
+            //dd($keys);//要素の属性が出力される
+            $values = array_values($form);
+            //dd($values);//要素の内容が出力される
+        }
+        $data = [
+            'msg' => $msg,
+            'keys' => $keys,
+            'values' => $values,
+        ];
+        return view('hello.index', $data);
+    }
+    */
+
+    /* Storage link
     private $fname;
 
     function __construct()
     {
-        $this->fname = 'sample.txt';
+        $this->fname = 'hello.txt';
     }
 
     public function index()
     {
-        $sample_msg = $this->fname;
-        $sample_data = Storage::get($this->fname);
+        $sample_msg = Storage::disk('public')->url('hello.txt');
+        $sample_data = Storage::disk('public')->get('hello.txt');
         $data = [
             'msg' => $sample_msg,
             'data' => explode(PHP_EOL,$sample_data),
@@ -29,10 +94,10 @@ class HelloController extends Controller
 
     public function other($msg)
     {
-        $data = Storage::get($this->fname) . PHP_EOL . $msg;
-        Storage::put($this->fname,$data);
+        Storage::disk('public')->prepend($this->fname,$msg);
         return redirect()->route('hello');
     }
+    */
 
     //configの実験
     // public function other(Request $request)
