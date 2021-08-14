@@ -12,13 +12,19 @@
 */
 
 use App\Http\Middleware\HelloMiddleware;
+use App\Http\Controllers\Sample\SampleController;
 
-Route::get('/hello/{person}', 'HelloController@index');
+Route::get('/hello', 'HelloController@index')->name('hello');
+Route::get('/hello/{msg}', 'HelloController@other');
+// Route::get('/hello/other', 'HelloController@other');
+Route::get('/sample', 'Sample\SampleController@index')->name('sample');
 
-Route::namespace('Sample')->group(function () {
-    Route::get('/sample', 'SampleController@index');
-    Route::get('/sample/other', 'SampleController@other');
-});
+// Route::get('/hello/{person}', 'HelloController@index');
+
+// Route::namespace('Sample')->group(function () {
+//     Route::get('/sample', 'SampleController@index');
+//     Route::get('/sample/other', 'SampleController@other');
+// });
 
 // Route::middleware([HelloMiddleware::class])->group(function () {
 //     Route::get('/hello', 'HelloController@index');
