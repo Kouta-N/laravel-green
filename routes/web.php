@@ -14,8 +14,11 @@
 use App\Http\Middleware\HelloMiddleware;
 use App\Http\Controllers\Sample\SampleController;
 
-Route::get('/hello', 'HelloController@index');
-Route::post('/hello', 'HelloController@index');
+Route::get('/hello/other', 'HelloController@other');
+Route::get('/hello', 'HelloController@index')->name('hello');
+
+// Route::get('/hello', 'HelloController@index');
+// Route::post('/hello', 'HelloController@index');
 
 // Route::get('/hello', 'HelloController@index')->name('hello');
 // Route::get('/hello/{msg}', 'HelloController@other');

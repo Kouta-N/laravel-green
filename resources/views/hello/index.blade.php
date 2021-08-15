@@ -9,7 +9,16 @@
 <body>
     <h1>Hello/Index</h1>
     <p>{!!$msg!!}</p>
-    <form action="/hello" method="POST">
+    <ul>
+        @foreach ($data as $item)
+            <li>{!! $item !!}</li>
+        @endforeach
+    </ul>
+
+    {{-- クエリパラメータ
+    <h1>Hello/Index</h1>
+    <p>{!!$msg!!}</p>
+    <form action="/hello" method="GET">
         @csrf
         <div>NAME:<input type="text" name="name"></div>
         <div>MAIL:<input type="text" name="mail"></div>
@@ -21,6 +30,7 @@
         @for ($i = 0; $i < count($keys); $i++)
             <li>{{ $keys[$i] }}:{{ $values[$i] }}</li>
         @endfor
-    </ol>
+    </ol> --}}
+
 </body>
 </html>
